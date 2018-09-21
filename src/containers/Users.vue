@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Użytkownicy</h1>
-        <UserList :users="users"/>
+        <UserList />
 
         <br>
 
@@ -14,13 +14,12 @@
 
 <script>
     import UserList from "../components/UserList";
-    import dataUsers from "../data/users";
 
     export default {
         name: "Users",
         computed: {
             users() {
-                return dataUsers;
+                return this.$store.state.users;
             }
         },
         components: {

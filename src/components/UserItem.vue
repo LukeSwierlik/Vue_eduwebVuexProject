@@ -1,35 +1,45 @@
 <template>
-
     <tr>
         <td>{{ index + 1 }}.</td>
+
         <td>
             <template v-if="editMode">
                 <div class="form-group">
-                    <input type="text" class="form-input" v-model.lazy="user.name"/>
+                    <input type="text" class="form-input" :value="user.name" @change="update($event, 'name')" />
                 </div>
             </template>
+
             <template v-else>
                 {{ user.name }}
             </template>
         </td>
+
         <td>
             <template v-if="editMode">
-                <input type="number" class="form-input" v-model.lazy.number="user.age"/>
+                <input type="number" class="form-input" :value="user.age" @change.number="update($event, 'age')"/>
             </template>
+
             <template v-else>
                 {{ user.age }}
             </template>
         </td>
+
         <td>
             <button class="btn btn-primary" @click="editMode = !editMode">
                 <i class="icon" :class="{ 'icon-edit': !editMode, 'icon-check': editMode }"></i>
             </button>
         </td>
-    </tr>
 
+        <td>
+            <button class="btn btn-error" @click="remove(user.id)">
+                <i class="icon icon-delete"></i>
+            </button>
+        </td>
+    </tr>
 </template>
 
 <script>
+    import { mapMutations, mapActions } from 'vuex';
 
     export default {
         name: "UserItem",
@@ -38,6 +48,22 @@
             return {
                 editMode: false
             };
+        },
+        methods: {
+            update(e, type) {
+                const value = e.target.value;
+                
+                this.updateUser({
+                    id: this.user.id,
+                    value,
+                    type
+                });
+            },
+            remove(id) {
+                this.removeUser({id});
+            },
+            ...mapMutations(['updateUser']),
+            ...mapActions(['removeUser'])
         }
     };
 
