@@ -7,9 +7,7 @@ const getters = {
     },
     returnUser(state) {
         return id => {
-            console.log('id', id);
-            console.log('state.users', state.users);
-            return state.users.find(user => user.id === id);
+            return state.users.find(user => user.id === parseInt(id, 10));
         }
     }
 };

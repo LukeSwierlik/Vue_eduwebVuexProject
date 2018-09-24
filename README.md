@@ -5,8 +5,12 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
+
+# install dependencies (client & server)
 npm install
+
+# server run
+node index.js
 
 # serve with hot reload at localhost:8080
 npm run dev

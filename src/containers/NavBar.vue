@@ -1,8 +1,9 @@
-<template>
+<template functional>
     <header class="navbar">
         <section class="navbar-section">
             <router-link :to="{name: 'Home'}" class="navbar-brand mr-2">Home</router-link>
             <router-link :to="{name: 'Users'}" class="btn btn-link" >Użytkownicy</router-link>
+            <router-link :to="{name: 'Product'}" class="btn btn-link" >Product</router-link>
         </section>
 
         <section class="navbar-section">

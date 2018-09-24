@@ -2,11 +2,24 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Users from '../containers/Users';
 import Home from '../containers/Home';
-import UserDetails from '../containers/UserDetails';
+// import UserDetails from '../containers/UserDetails';
+// import UserEdit from '../containers/UserEdit';
+import UserLogin from '../components/User/UserLogin';
+import Product from '../components/Product/Product';
 
 Vue.use(Router);
 
+const UserEdit = () => import(/* webpackChunkName: "user" */ '../components/User/UserEdit');
+const UserDetails = () => import(/* webpackChunkName: "user" */ '../components/User/UserDetails');
+
 export default new Router({
+    scrollBehavior(to, from, savedPosition) {
+        return {
+            x: 0,
+            y: 0
+        }
+    },
+    mode: 'history',
     routes: [
         {
             path: '/',
@@ -19,10 +32,27 @@ export default new Router({
             component: Users
         },
         {
-            path: '/users/:id',
+            path: '/user/:id',
             name: 'UserDetails',
-            component: UserDetails
+            component: UserDetails,
+            props: true,
+            children: [{
+                path: 'edit',
+                name: 'UserEdit',
+                component: UserEdit,
+                props: true
+            }]
         },
+        {
+            path: '/login',
+            name: 'Login',
+            component: UserLogin
+        },
+        {
+            path: '/product',
+            name: 'Product',
+            component: Product
+        }
     ],
     linkActiveClass: "text-bold"
 })

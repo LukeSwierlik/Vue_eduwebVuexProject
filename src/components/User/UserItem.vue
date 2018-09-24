@@ -25,6 +25,29 @@
         </td>
 
         <td>
+            <router-link
+                class="btn btn-primary"
+                tag="button"
+                :to="{
+                    name: 'UserDetails',
+                    params: {id: user.id}
+                    }"
+            >
+                <i class="icon icon-search"></i>
+            </router-link>
+        </td>
+
+        <td>
+            <router-link
+                class="btn btn-primary"
+                tag="button"
+                :to="{name: 'UserEdit', params: {id: user.id}}"
+            >
+                <i class="icon icon-edit"></i>
+            </router-link>
+        </td>
+
+        <td>
             <button class="btn btn-primary" @click="editMode = !editMode">
                 <i class="icon" :class="{ 'icon-edit': !editMode, 'icon-check': editMode }"></i>
             </button>
@@ -62,8 +85,8 @@
             remove(id) {
                 this.removeUser({id});
             },
-            ...mapMutations(['updateUser']),
-            ...mapActions(['removeUser'])
+            ...mapMutations('storeUsers', ['updateUser']),
+            ...mapActions('storeUsers', ['removeUser'])
         }
     };
 

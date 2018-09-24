@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import UserList from "../components/UserList";
+    import UserList from "../components/User/UserList";
 
     export default {
         name: "Users",

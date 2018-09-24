@@ -16,7 +16,10 @@
                     <th>Lp.</th>
                     <th>Imię i nazwisko</th>
                     <th>Wiek</th>
+                    <th>Szczegóły</th>
+                    <th>EdytujRouter</th>
                     <th>Edytuj</th>
+                    <th>Usuń</th>
                 </tr>
             </thead>
 
@@ -54,8 +57,10 @@
                     return this.users;
                 }
             },
-            ...mapState(['users']),
-            ...mapGetters(['female', 'male'])
+            ...mapState({
+                users: state => state.storeUsers.users
+            }),
+            ...mapGetters('storeUsers', ['female', 'male'])
         },
         components: {
             UserItem

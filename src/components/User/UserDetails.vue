@@ -6,6 +6,8 @@
 
         <p>Wiek: {{ user.age }}</p>
         <p>Płeć: {{ user.gender }}</p>
+
+        <router-view/>
     </div>
 </template>
 
@@ -14,17 +16,17 @@
 
     export default {
         name: "UserDetails",
+        props: ['id'],
         data() {
             return {
                 user: null
             }
         },
         computed: {
-            ...mapGetters(['returnUser'])
+            ...mapGetters('storeUsers', ['returnUser'])
         },
         created() {
-            const id = this.$route.params.id;
-            console.log('returnUser', this.returnUser(id));
+            const id = this.id;
 
             this.user = this.returnUser(id);
         }

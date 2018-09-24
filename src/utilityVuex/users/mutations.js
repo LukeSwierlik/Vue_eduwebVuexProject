@@ -7,7 +7,7 @@ const mutations = {
         state.users[index][payload.type] = payload.value;
     },
     removeUser(state, payload) {
-        state.users = state.users.filter(user => user.id !== payload);
+        state.users = state.users.filter(user => user.id !== payload.id);
     }
 };
 
