@@ -3,7 +3,7 @@ import getters from './getters';
 import mutations from './mutations';
 import actions from './actions';
 
-const moduleProduct = {
+const moduleQuiz = {
     namespaced: true,
     state,
     getters,
@@ -11,4 +11,4 @@ const moduleProduct = {
     actions
 };
 
-export default moduleProduct
+export default moduleQuiz

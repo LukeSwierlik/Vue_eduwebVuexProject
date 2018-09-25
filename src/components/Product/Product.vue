@@ -24,7 +24,10 @@
             <div class="clearfix"></div>
 
             <div class="order">
-                <button class="btn btn-lg btn-success float-right">Złóż zamówienie</button>
+                <button
+                    class="btn btn-lg btn-success float-right"
+                    @click="order"
+                >Złóż zamówienie</button>
             </div>
         </template>
 
@@ -35,7 +38,7 @@
 </template>
 
 <script>
-    import {mapState, mapGetters} from 'vuex';
+    import { mapState, mapGetters, mapActions } from 'vuex';
     import OptionGroup from './OptionGroup';
 
     export default {
@@ -43,6 +46,12 @@
         computed: {
             ...mapState('storeProduct', ['product', 'finished']),
             ...mapGetters('storeProduct', ['price'])
+        },
+        methods: {
+            order() {
+                this.orderProduct();
+            },
+            ...mapActions('storeProduct', ['orderProduct'])
         },
         components: {
             OptionGroup

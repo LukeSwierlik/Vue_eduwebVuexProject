@@ -4,6 +4,7 @@
             <router-link :to="{name: 'Home'}" class="navbar-brand mr-2">Home</router-link>
             <router-link :to="{name: 'Users'}" class="btn btn-link" >Użytkownicy</router-link>
             <router-link :to="{name: 'Product'}" class="btn btn-link" >Product</router-link>
+            <router-link :to="{name: 'MainQuiz'}" class="btn btn-link" >Quiz</router-link>
         </section>
 
         <section class="navbar-section">

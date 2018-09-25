@@ -16,6 +16,7 @@
         name: 'App',
         components: {NavBar},
         methods: {
+            // TODO: All this methods change to Actions/Mutations
             fetchUsers() {
                 const url = 'http://localhost:3000/users';
 
@@ -33,11 +34,21 @@
                     .then(({ data }) => {
                         this.$store.state.storeProduct.product = data;
                     });
+            },
+            fetchQuestions() {
+                const url = 'http://localhost:3000/questions';
+
+                axios
+                    .get(url)
+                    .then(({ data }) => {
+                        this.$store.state.storeQuiz.questions = data;
+                    });
             }
         },
         created() {
             this.fetchUsers();
             this.fetchProduct();
+            this.fetchQuestions();
         }
     }
 </script>

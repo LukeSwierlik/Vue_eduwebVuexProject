@@ -7,12 +7,15 @@
                 v-for="(productOption, index) in feature.options"
                 :key="index"
                 :productOption="productOption"
+                @click.native="selectOption(productOption)"
+                :feature="feature"
             />
         </div>
     </div>
 </template>
 
 <script>
+    import { mapMutations } from 'vuex';
     import ProductOptionView from './ProductOptionView';
 
     export default {
@@ -22,8 +25,22 @@
                 type: Object
             }
         },
+        methods: {
+            selectOption(productOption) {
+                this.select({
+                    feature: this.feature.code,
+                    option: productOption.code
+                });
+            },
+            ...mapMutations('storeProduct', ['select'])
+        },
         components: {
             ProductOptionView
+        },
+        created() {
+            this.feature.options
+                .filter(option => option.price === 0)
+                .forEach(option => this.selectOption(option));
         }
     }
 </script>

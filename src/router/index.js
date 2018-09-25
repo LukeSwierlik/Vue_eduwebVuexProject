@@ -6,6 +6,7 @@ import Home from '../containers/Home';
 // import UserEdit from '../containers/UserEdit';
 import UserLogin from '../components/User/UserLogin';
 import Product from '../components/Product/Product';
+import Quiz from '../components/Quiz/Quiz';
 
 Vue.use(Router);
 
@@ -52,6 +53,22 @@ export default new Router({
             path: '/product',
             name: 'Product',
             component: Product
+        },
+        {
+            path: '/quiz',
+            name: 'MainQuiz',
+            redirect: {
+                name: 'Quiz',
+                params: {
+                    number: 1
+                }
+            },
+        },
+        {
+            path: '/question/:number',
+            name: 'Quiz',
+            component: Quiz,
+            props: true
         }
     ],
     linkActiveClass: "text-bold"
