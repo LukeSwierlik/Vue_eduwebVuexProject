@@ -7,6 +7,8 @@ import Home from '../containers/Home';
 import UserLogin from '../components/User/UserLogin';
 import Product from '../components/Product/Product';
 import Quiz from '../components/Quiz/Quiz';
+import Summary from '../components/Quiz/Summary';
+import RegisterForm from '../components/Form/RegisterForm';
 
 Vue.use(Router);
 
@@ -69,6 +71,16 @@ export default new Router({
             name: 'Quiz',
             component: Quiz,
             props: true
+        },
+        {
+            path: '/summary',
+            name: 'Summary',
+            component: Summary
+        },
+        {
+            path: '/form',
+            name: 'Form',
+            component: RegisterForm
         }
     ],
     linkActiveClass: "text-bold"

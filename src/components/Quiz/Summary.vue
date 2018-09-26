@@ -12,16 +12,14 @@
             </thead>
 
             <tbody>
-                <tr class="correct">
-                    <td>W którym wieku urodził się Jan Kochanowski?</td>
-                    <td>XVI</td>
-                    <td>XVI</td>
-                </tr>
-
-                <tr class="incorrect">
-                    <td>Na jakim kontynencie znajduje się rzeka Ganges?</td>
-                    <td>w Afryce</td>
-                    <td>w Azji</td>
+                <tr
+                    v-for="(answer, index) in summary"
+                    :key="index"
+                    :class="[answer.correct ? 'correct' : 'incorrect']"
+                >
+                    <td>{{ answer.question }}</td>
+                    <td>{{ answer.correctAnswer }}</td>
+                    <td>{{ answer.yourAnswer }}</td>
                 </tr>
             </tbody>
         </table>
@@ -29,8 +27,15 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
-        name: "Summary"
+        name: "Summary",
+        computed: {
+            ...mapState({
+                summary: state => state.storeQuiz.summary
+            })
+        }
     }
 </script>
 

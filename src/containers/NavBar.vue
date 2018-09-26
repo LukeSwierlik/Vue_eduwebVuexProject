@@ -5,6 +5,7 @@
             <router-link :to="{name: 'Users'}" class="btn btn-link" >Użytkownicy</router-link>
             <router-link :to="{name: 'Product'}" class="btn btn-link" >Product</router-link>
             <router-link :to="{name: 'MainQuiz'}" class="btn btn-link" >Quiz</router-link>
+            <router-link :to="{name: 'Form'}" class="btn btn-link" >Form</router-link>
         </section>
 
         <section class="navbar-section">

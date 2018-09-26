@@ -6,6 +6,9 @@ const mutations = {
     },
     changeCurrent(state, payload) {
         state.currentQuestion += payload.n;
+    },
+    summary(state, payload) {
+        state.summary = payload.data;
     }
 };
 

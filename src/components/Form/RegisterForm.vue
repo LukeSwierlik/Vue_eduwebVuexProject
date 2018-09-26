@@ -1,0 +1,184 @@
+<template>
+    <div>
+        <h1>Rejestracja</h1>
+
+        {{ $v }}
+
+        <form action="#" class="form-horizontal">
+
+            <div
+                class="form-group"
+                :class="{'has-error': $v.name.$error}"
+            >
+                <div class="col-2">
+                    <label class="form-label">Imię i nazwisko</label>
+                </div>
+
+                <div class="col-3">
+                    <input
+                        type="text"
+                        class="form-input"
+                        v-model="name"
+                        @input="$v.name.$touch()"
+                    />
+
+                    <p
+                        class="form-input-hint"
+                        v-if="$v.name.$dirty && !$v.name.required"
+                    >
+                        Pole jest nie poprawne.
+                    </p>
+
+                    <p
+                        class="form-input-hint"
+                        v-if="$v.name.$dirty && !$v.name.minLength"
+                    >
+                        Wpisz treść o przynajmniej 2 znakach.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="form-group"
+                :class="{'has-error': $v.email.$error}"
+            >
+                <div class="col-2">
+                    <label class="form-label">Adres e-mail</label>
+                </div>
+
+                <div class="col-3">
+                    <input
+                        type="email"
+                        class="form-input"
+                        v-model="email"
+                        @input="$v.email.$touch()"
+                    />
+
+                    <p
+                        class="form-input-hint"
+                        v-if="$v.email.$dirty && !$v.email.required"
+                    >
+                        Pole jest nie poprawne.
+                    </p>
+
+                    <p
+                        class="form-input-hint"
+                        v-if="$v.email.$dirty && !$v.email.email"
+                    >
+                        Adres email jest nie poprawny.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="form-group"
+                :class="{'has-error': $v.country.$error}"
+            >
+                <div class="col-2">
+                    <label class="form-label">Kraj</label>
+                </div>
+
+                <div class="col-3">
+                    <select
+                        class="form-select"
+                        v-model="country"
+                        @change="$v.country.$touch()"
+                    >
+                        <option disabled value="">Wybierz kraj</option>
+                        <option value="poland">Polska</option>
+                        <option value="usa">Stany Zjednoczone</option>
+                        <option value="china">Chiny</option>
+                    </select>
+
+                    <p
+                        class="form-input-hint"
+                        v-if="$v.country.$dirty && !$v.country.required"
+                    >
+                        Pole jest nie poprawne.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-2">
+                    <label class="form-label">Hasło</label>
+                </div>
+                <div class="col-3">
+                    <input type="password" class="form-input" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-2">
+                    <label class="form-label">Powtórz hasło</label>
+                </div>
+                <div class="col-3">
+                    <input type="password" class="form-input">
+                </div>
+            </div>
+
+            <div
+                class="form-group"
+                :class="{'has-error': $v.terms.$error}"
+            >
+                <label class="form-switch">
+                    <input
+                        type="checkbox"
+                        v-model="terms"
+                        @change="$v.terms.$touch()"
+                    />
+                    <i class="form-icon"></i> Akceptuję <a href="#">regulamin</a>.
+                </label>
+
+                <p
+                    class="form-input-hint"
+                    v-if="$v.terms.$dirty && !$v.terms.required"
+                >
+                    Pole jest wymagane.
+                </p>
+            </div>
+
+            <div class="col-5">
+                <button
+                    class="btn btn-primary float-right"
+                    :disabled="$v.$invalid"
+                >Wyślij</button>
+            </div>
+        </form>
+    </div>
+</template>
+
+<script>
+    import { validationMixin } from 'vuelidate';
+    import { required, minLength, email } from 'vuelidate/lib/validators';
+
+    export default {
+        name: "RegisterForm",
+        mixins: [validationMixin],
+        data() {
+            return {
+                name: '',
+                email: '',
+                country: '',
+                terms: false
+            }
+        },
+        validations: {
+            name: {
+                required,
+                minLength: minLength(2)
+            },
+            email: {
+                required,
+                email
+            },
+            country: {
+                required
+            },
+            terms: {
+                required
+            }
+        }
+    };
+
+</script>
