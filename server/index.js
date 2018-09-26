@@ -64,4 +64,18 @@ app.post("/check", function(req, res) {
     res.json(result);
 });
 
+
+// === Endpoint for RegisterForm
+const emails = [
+    "jan@kowalski.pl",
+    "piotr@nowak.com"
+];
+
+app.post("/email", function(req, res) {
+
+    res.json({
+        unique: !emails.includes(req.body.email)
+    });
+});
+
 app.listen(3000, () => console.log("Serwer został uruchomiony pod adresem http://localhost:3000"));

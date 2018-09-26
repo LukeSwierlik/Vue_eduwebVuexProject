@@ -2,8 +2,6 @@
     <div>
         <h1>Rejestracja</h1>
 
-        {{ $v }}
-
         <form action="#" class="form-horizontal">
 
             <div
@@ -50,7 +48,7 @@
                     <input
                         type="email"
                         class="form-input"
-                        v-model="email"
+                        v-model.lazy="email"
                         @input="$v.email.$touch()"
                     />
 
@@ -66,6 +64,13 @@
                         v-if="$v.email.$dirty && !$v.email.email"
                     >
                         Adres email jest nie poprawny.
+                    </p>
+
+                    <p
+                        class="form-input-hint"
+                        v-if="$v.email.$dirty && !$v.email.unique"
+                    >
+                        Adres email jest zajęty.
                     </p>
                 </div>
             </div>
@@ -99,21 +104,51 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"
+                 :class="{'has-error': $v.password.$error}"
+            >
                 <div class="col-2">
                     <label class="form-label">Hasło</label>
                 </div>
+
                 <div class="col-3">
-                    <input type="password" class="form-input" />
+                    <input type="password"
+                           class="form-input"
+                           v-model="password"
+                           @change="$v.password.$touch()"
+                    />
+
+                    <p
+                    class="form-input-hint"
+                    v-if="$v.password.$dirty && !$v.password.required"
+                    >
+                    Pole jest nie poprawne.
+                    </p>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div
+                class="form-group"
+                :class="{'has-error': $v.repeatPassword.$error}"
+            >
                 <div class="col-2">
                     <label class="form-label">Powtórz hasło</label>
                 </div>
+
                 <div class="col-3">
-                    <input type="password" class="form-input">
+                    <input
+                        type="password"
+                        class="form-input"
+                        v-model="repeatPassword"
+                        @change="$v.repeatPassword.$touch()"
+                    >
+
+                    <p
+                        class="form-input-hint"
+                        v-if="$v.repeatPassword.$dirty && !$v.repeatPassword.sameAsPassword"
+                    >
+                        Hasła nie są takie same.
+                    </p>
                 </div>
             </div>
 
@@ -149,8 +184,9 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import { validationMixin } from 'vuelidate';
-    import { required, minLength, email } from 'vuelidate/lib/validators';
+    import { required, minLength, email, sameAs } from 'vuelidate/lib/validators';
 
     export default {
         name: "RegisterForm",
@@ -160,7 +196,9 @@
                 name: '',
                 email: '',
                 country: '',
-                terms: false
+                terms: false,
+                password: '',
+                repeatPassword: ''
             }
         },
         validations: {
@@ -170,13 +208,28 @@
             },
             email: {
                 required,
-                email
+                email,
+                unique(value) {
+                    const url = 'http://localhost:3000/email';
+
+                    return axios
+                        .post(url, {
+                            email: value
+                        })
+                        .then(({ data }) => data.unique);
+                }
             },
             country: {
                 required
             },
             terms: {
                 required
+            },
+            password: {
+                required
+            },
+            repeatPassword: {
+                sameAsPassword: sameAs('password')
             }
         }
     };
